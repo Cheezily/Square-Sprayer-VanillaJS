@@ -1,6 +1,6 @@
 var maxStars = 100;
 var startingStars = 40;
-var starBurst = 10;
+var starBurst = 15;
 var startX = Math.floor(screen.availWidth/10);
 var startY = Math.floor(screen.availHeight/10)
 var starSpeed = Math.floor(screen.availWidth/400);
@@ -35,7 +35,6 @@ function makeStars(override) {
               };
   stars.push(star);
   }
-
 }
 
 
@@ -102,7 +101,7 @@ document.onmousemove = function(event) {
   startY = event.clientY;
 }
 
-target.onmousedown = function(event) {
+target.onmousedown = function() {
   for (var i = 0; i < starBurst; i++) {
     makeStars(true);
   }
