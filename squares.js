@@ -3,7 +3,7 @@ var startingStars = 40;
 var starBurst = 15;
 var startX = Math.floor(screen.availWidth/10);
 var startY = Math.floor(screen.availHeight/10)
-var starSpeed = Math.floor(screen.availWidth/400);
+var starSpeed = Math.floor(screen.availWidth/500);
 var sizePxGrowth = 3;
 var shadowGrowth = .5;
 var borderGrowth = .1;
@@ -12,10 +12,14 @@ var target = document.getElementById("target");
 var dragX = 0;
 var dragY = 0;
 
+var delay = 10;
+var starChance = .2;
+var movementMultiplier = .013;
+
 function makeStars(override) {
 
   //i only want it to make a star on a small number of attempts
-  if(Math.random() < .05 || override) {
+  if(Math.random() < starChance || override) {
     var direction = Math.floor(Math.random() * 360);
     var color = "rgb(" + Math.floor(Math.random() * 255) +
                 ", " + Math.floor(Math.random() * 255) +
@@ -61,7 +65,7 @@ function showStars() {
 
   setTimeout(function() {
     showStars();
-  }, 10);
+  }, delay);
 
   if (stars.length < maxStars) {
     makeStars();
@@ -80,16 +84,16 @@ function moveStar(i) {
 
 
 function deleteCheck(star, i) {
-  if (star.xPos > screen.availWidth * 1.7 ||
-      star.yPos > screen.availHeight * 1.7 ||
-      star.xPos < -screen.availHeight * 1.7 ||
-      star.yPos < -screen.availWidth * 1.7 ) {
+  if (star.xPos > screen.availWidth * 1.3 ||
+      star.yPos > screen.availHeight * 1.3 ||
+      star.xPos < -screen.availHeight * 1.3 ||
+      star.yPos < -screen.availWidth * 1.3 ||
+      star.width > screen.availHeight * .8) {
         stars.splice(i, 1);
       }
 }
 
 document.onmousemove = function(event) {
-  var movementMultiplier = .01;
 
   if (event.clientX > startX) {dragX = movementMultiplier;}
   if (event.clientX < startX) {dragX = -movementMultiplier;}
