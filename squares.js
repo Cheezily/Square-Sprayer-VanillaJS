@@ -1,4 +1,5 @@
 var maxStars = 100;
+var startingStars = 40;
 var startX = Math.floor(screen.availWidth/10);
 var startY = Math.floor(screen.availHeight/10)
 var starSpeed = Math.floor(screen.availWidth/400);
@@ -10,10 +11,10 @@ var target = document.getElementById("target");
 var dragX = 0;
 var dragY = 0;
 
-function makeStars() {
+function makeStars(override) {
 
   //i only want it to make a star on a small number of attempts
-  if(Math.random() < .1) {
+  if(Math.random() < .1 || override) {
     var direction = Math.floor(Math.random() * 360);
     var color = "rgb(" + Math.floor(Math.random() * 255) +
                 ", " + Math.floor(Math.random() * 255) +
@@ -98,4 +99,9 @@ document.onmousemove = function(event) {
   startY = event.clientY;
 
 }
+
+for (var i = 0; i < startingStars; i++) {
+  makeStars(true);
+}
+
 showStars();
