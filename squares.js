@@ -1,5 +1,6 @@
 var maxStars = 100;
 var startingStars = 40;
+var starBurst = 10;
 var startX = Math.floor(screen.availWidth/10);
 var startY = Math.floor(screen.availHeight/10)
 var starSpeed = Math.floor(screen.availWidth/400);
@@ -14,7 +15,7 @@ var dragY = 0;
 function makeStars(override) {
 
   //i only want it to make a star on a small number of attempts
-  if(Math.random() < .1 || override) {
+  if(Math.random() < .05 || override) {
     var direction = Math.floor(Math.random() * 360);
     var color = "rgb(" + Math.floor(Math.random() * 255) +
                 ", " + Math.floor(Math.random() * 255) +
@@ -80,10 +81,10 @@ function moveStar(i) {
 
 
 function deleteCheck(star, i) {
-  if (star.xPos > screen.availWidth * 1.2 ||
-      star.yPos > screen.availHeight * 1.2 ||
-      star.xPos < -screen.availHeight * 1.2 ||
-      star.yPos < -screen.availWidth * 1.2 ) {
+  if (star.xPos > screen.availWidth * 1.7 ||
+      star.yPos > screen.availHeight * 1.7 ||
+      star.xPos < -screen.availHeight * 1.7 ||
+      star.yPos < -screen.availWidth * 1.7 ) {
         stars.splice(i, 1);
       }
 }
@@ -95,9 +96,16 @@ document.onmousemove = function(event) {
   if (event.clientX < startX) {dragX = -movementMultiplier;}
   if (event.clientY > startY) {dragY = movementMultiplier;}
   if (event.clientY < startY) {dragY = -movementMultiplier;}
+  if (event.clientX == startX) {dragX = dragX * .5;}
+  if (event.clientY == startY) {dragY = dragY * .5;}
   startX = event.clientX;
   startY = event.clientY;
+}
 
+target.onmousedown = function(event) {
+  for (var i = 0; i < starBurst; i++) {
+    makeStars(true);
+  }
 }
 
 for (var i = 0; i < startingStars; i++) {
